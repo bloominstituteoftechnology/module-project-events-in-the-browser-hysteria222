@@ -116,7 +116,7 @@ function moduleProject2() {
     // 👉 TASK 5 - End the game 👈
   })  
       let bugsAlive = document.querySelectorAll('[data-status=alive]')
-      if (bugsAlive.length === 0) {
+      if (!bugsAlive.length) {
         console.log('no more bugs')
       }
       
