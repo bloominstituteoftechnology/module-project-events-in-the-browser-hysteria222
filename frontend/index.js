@@ -37,6 +37,10 @@ function moduleProject2() {
       row.appendChild(square)
       square.addEventListener('click', () => {
         // 👉 TASK 2 - Use a click handler to target a square 👈
+       if (!square.classList.contains('targeted')) {
+          document.querySelector('.targeted').classList.remove('targeted')
+          square.classList.add('targeted')
+       }
       })
     }
   }
@@ -66,10 +70,58 @@ function moduleProject2() {
   document.addEventListener('keydown', evt => {
     // 👉 TASK 3 - Use the arrow keys to highlight a new square 👈
 
+        let targeted = document.querySelector('.targeted')
+        let up = evt.key === keys.up;
+        let down = evt.key === keys.down;
+        let right = evt.key === keys.right;
+        let left = evt.key === keys.left;
+        let space = evt.key === keys.space;
+
+        if (up) {
+            if (targeted.parentElement.previousElementSibling) {
+              let idx = Array.from(targeted.parentElement.children).indexOf(targeted)
+              targeted.classList.remove('targeted')
+              targeted.parentElement.previousElementSibling.children[idx].classList.add('targeted')
+            }
+        } else if (down) {
+            if (targeted.parentElement.nextElementSibling){
+              let idx = Array.from(targeted.parentElement.children).indexOf(targeted)
+              targeted.classList.remove('targeted')
+              targeted.parentElement.nextSibling.children[idx].classList.add('targeted') 
+            }
+        } else if (left) {
+            if (targeted.previousElementSibling){
+              targeted.classList.remove('targeted')
+              targeted.previousElementSibling.classList.add('targeted')    
+            }
+        } else if (right) {
+            if (targeted.nextElementSibling) {
+              targeted.classList.remove('targeted')
+              targeted.nextElementSibling.classList.add('targeted')
+            }
+        }
     // 👉 TASK 4 - Use the space bar to exterminate a mosquito 👈
+    
+            else if (space) {
+            if (targeted) {
+              let bugs = targeted.firstChild;
+              if (bugs && bugs.dataset.status === 'alive') {
+                bugs.dataset.status = 'dead'
+              document.querySelector('.square.targeted').style.backgroundColor = 'red';
+            }
+          }
+        }
+          
 
     // 👉 TASK 5 - End the game 👈
-  })
+  })  
+      let bugsAlive = document.querySelectorAll('[data-status=alive]')
+      if (bugsAlive.length === 0) {
+        console.log('no more bugs')
+      }
+      
+
+
   // 👆 WORK WORK ABOVE THIS LINE 👆
 }
 
