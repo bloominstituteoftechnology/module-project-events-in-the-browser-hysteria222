@@ -114,13 +114,23 @@ function moduleProject2() {
           
 
     // 👉 TASK 5 - End the game 👈
-  })  
-      let bugsAlive = document.querySelectorAll('[data-status=alive]')
-      if (!bugsAlive.length) {
-        console.log('no more bugs')
-      }
-      
+  
+    let bugsAlive = document.querySelectorAll('[data-status=alive]');
+    if (!bugsAlive.length) {
+      console.log('no more bugs')
+      let time = getTimeElapsed()
+      document.querySelector('p.info').textContent = `Extermination completed in ${time / 1000} seconds!`
 
+      let restartButton = document.createElement('button')
+      restartButton.textContent = 'Restart'
+      document.querySelector('h2').insertAdjacentElement('beforeend', restartButton)
+      restartButton.focus()
+      restartButton.addEventListener('click', () => {
+        location.reload()
+      })
+   
+    }
+  }) 
 
   // 👆 WORK WORK ABOVE THIS LINE 👆
 }
